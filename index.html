@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <title>N Arts Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: #ffbe0a;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        header {
+            background-color: rgba(109, 81, 96, 0.8);
+            color: rgb(31, 243, 144);
+            padding: 1em;
+            text-align: center;
+        }
+        header h1,h2 {
+            text-shadow: 2px 2px 4px black;
+            margin: 0;
+        }
+        header h1,h2 span {
+            border: 2px solid black;
+            padding: 5px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: rgba(85, 85, 85, 0.8);
+            opacity: 1;
+            padding: 0.5em;
+        }
+
+        nav a {
+    position: relative;
+    color: white;
+    text-decoration: none;
+    margin: 0 1em;
+    padding: 0.5em;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #25d366; /* Line color */
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.5s ease;
+}
+
+nav a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+
+        section {
+            padding: 2em;
+        }
+
+        .art-piece {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .art-piece img {
+            max-width: 100%;
+            height: auto;
+            margin: 1em;
+            border: 1px solid #afc9dae3;
+            border-radius: 8px;
+            width: 190px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0.1, 1.5);
+            cursor: pointer; /* Add cursor pointer for the clickable effect */
+        }
+
+        form {
+            max-width: 400px;
+            margin: auto;
+            background-color: #ebd0d0;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input,
+        textarea,
+        button {
+            display: block;
+            margin-bottom: 1em;
+            width: 100%;
+            padding: 0.5em;
+        }
+
+        button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        button.animated {
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes blink {
+        0% { opacity: 1; }
+        50% { opacity: 0; }
+        100% { opacity: 1; }
+        }
+        h2{
+        animation: blink 5s infinite;
+        }
+        @keyframes colorChange {
+        0% { color: red; }
+        25% { color: blue; }
+        50% { color: green; }
+        75% { color: orange; }
+        100% { color: purple; }
+        }
+        h1, h2{
+        animation: colorChange 9s infinite;
+        }
+        h1, h2{
+        margin-top: 5px;
+        margin-bottom: 10px;
+        margin-left: 20px;
+        margin-right: 20px;
+        }
+        h1{
+        font-size: 80px;
+        }
+        h2{
+        font-size: 30px;
+        }
+        section#contact {
+            background-color: rgba(85, 85, 85, 0.8);
+            color: white;
+            padding: 2em;
+            text-align: center;
+        }
+
+        section#contact a {
+            color: #ffbe0a;
+            text-decoration: underline;
+        }
+        #imageModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #imageModal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .scroll-to-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff71;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px; 
+    height: 40px; 
+    text-align: center;
+    line-height: 40px; 
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(253, 253, 253, 0.705);
+}
+.scroll-to-top i {
+    font-size: 15px;
+}
+#whatsapp-label {
+      position: fixed;
+      right: 10px;
+      bottom: 350px;
+      background-color: #25d366; /* WhatsApp Green */
+      color: #fff;
+      padding: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 999;
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span>N Arts</span></h1>
+    </header>
+    
+    <nav>
+        <a href="#pencil_drawings">Pencil Drawings</a>
+        <a href="#canvas_paintings">Canvas Paintings</a>
+        <!--a href="#feedback">Feedback</a-->
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <section id="pencil_drawings" style="color: #333;">
+        <h2><span>Pencil Drawings</span></h2>
+        <div class="art-piece">
+            <img src="artwork1.jpg" alt="Artwork 1" onclick="openImageModal('artwork1.jpg')">
+            <img src="artwork2.jpg" alt="Artwork 2" onclick="openImageModal('artwork2.jpg')">
+            <img src="artwork3.jpg" alt="Artwork 3" onclick="openImageModal('artwork3.jpg')">
+            <img src="artwork4.jpg" alt="Artwork 4" onclick="openImageModal('artwork4.jpg')">
+            <img src="artwork5.jpg" alt="Artwork 5" onclick="openImageModal('artwork5.jpg')">
+            <img src="artwork6.jpg" alt="Artwork 6" onclick="openImageModal('artwork6.jpg')">
+            <img src="artwork7.jpg" alt="Artwork 7" onclick="openImageModal('artwork7.jpg')">
+            <img src="artwork8.jpg" alt="Artwork 8" onclick="openImageModal('artwork8.jpg')">
+            <img src="artwork9.jpg" alt="Artwork 9" onclick="openImageModal('artwork9.jpg')">
+            <img src="artwork10.jpg" alt="Artwork 10" onclick="openImageModal('artwork10.jpg')">
+            <img src="artwork11.jpg" alt="Artwork 11" onclick="openImageModal('artwork11.jpg')">
+            <img src="artwork12.jpg" alt="Artwork 12" onclick="openImageModal('artwork12.jpg')">
+            <img src="artwork13.jpg" alt="Artwork 13" onclick="openImageModal('artwork13.jpg')">
+            <img src="artwork14.jpg" alt="Artwork 14" onclick="openImageModal('artwork14.jpg')">
+            <img src="artwork15.jpg" alt="Artwork 15" onclick="openImageModal('artwork15.jpg')">
+            
+        </div>
+        <section id="canvas_paintings">
+        <h2><span>Canvas Paintings</span></h2>
+        <div class="art-piece">
+            <img src="partwork1.jpg" alt="PArtwork 1" onclick="openImageModal('partwork1.jpg')">
+            <img src="partwork2.jpg" alt="PArtwork 2" onclick="openImageModal('partwork2.jpg')">
+            <img src="partwork3.jpg" alt="PArtwork 3" onclick="openImageModal('partwork3.jpg')">
+            <img src="partwork4.jpg" alt="PArtwork 4" onclick="openImageModal('partwork4.jpg')">
+        </div>
+    </section>
+    </section>
+    
+    <div id="imageModal" onclick="closeImageModal()">
+        <img id="modalImage" src="" alt="Modal Image">
+    </div>
+    <div class="scroll-to-top" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    <div id="whatsapp-label" onclick="openWhatsApp()">
+        Order on WhatsApp
+      </div>
+
+    <!--<section id="feedback" style="color: #333;">
+        <h2><span>Customer Feedback</span></h2>
+        <form action="submit_form.php" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="Feedback">Message:</label>
+            <textarea id="Feedback" name="Feedback" rows="3" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </section>-->
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>For inquiries, you can reach us at:</p>
+        <p>Contact Number: <strong>+94 75 078 8425</strong></p>
+        <p>Visit my <a href="https://www.facebook.com/naduninfire?mibextid=LQQJ4d" target="_blank">Facebook Page</a> for updates.</p>
+        <p>Watch my videos on <a href="https://www.tiktok.com/@n_arts_with_naduni?_t=8iEaYJUBQ3z&_r=1" target="_blank">TikTok</a></p>
+    </section>
+
+    <script>
+        const backgroundImages = ['background1.jpg', 'background2.jpg', 'background3.jpg', 'background4.jpg', 'background5.jpg'];
+        let currentIndex = 0;
+
+        function changeBackground() {
+            document.body.style.backgroundImage = `url('${backgroundImages[currentIndex]}')`;
+            currentIndex = (currentIndex + 1) % backgroundImages.length;
+        }
+
+        function adjustThemeColor() {
+            const defaultColor = '#333';
+            document.body.style.backgroundColor = defaultColor;
+        }
+
+        function openImageModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imageSrc;
+            modal.style.display = 'flex';
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+        }
+
+        changeBackground();
+        adjustThemeColor();
+
+        setInterval(() => {
+            changeBackground();
+            adjustThemeColor();
+        }, 10000);
+        window.onscroll = function () {
+    scrollFunction();
+};
+
+function scrollFunction() {
+    var scrollButton = document.querySelector(".scroll-to-top");
+
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        scrollButton.style.display = "block";
+    } else {
+        scrollButton.style.display = "none";
+    }
+}
+
+function scrollToTop() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+}
+function openWhatsApp() {
+      // Replace the phone number with the desired WhatsApp number
+      var phoneNumber = '+94750788425';
+      var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + phoneNumber;
+      window.open(whatsappUrl, '_blank');
+    }
+
+    </script>
+</body>
+</html>
